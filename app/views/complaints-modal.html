@@ -1,0 +1,24 @@
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">&times;</button>
+    <h4 class="modal-title">Complaint Remark</h4>
+</div>
+<div class="modal-body">
+    <form class="form-horizontal row-border" name="complaintForm">
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Remark<span style="color: red;margin-left:2px;">*</span>
+            </label>
+            <div class="col-sm-6">
+                <textarea class="form-control" name="complaintDescription" ng-model="data.complaintDescription" required></textarea>
+                <div ng-messages="complaintForm.complaintDescription.$error" ng-show="complaintForm.complaintDescription.$touched || submitted">
+                    <div ng-message="required" class="has-error">
+                        Please enter remark
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="save()">Submit</button>
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
+    </form>
+</div>

@@ -1,0 +1,49 @@
+<div class="container">
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-title">Products</h4>
+            <ol class="breadcrumb">
+                <li><a href="#">ScrapQ</a></li>
+                <li><a href="#">CRM</a></li>
+                <li class="active">Products</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <form role="form">
+                            <div class="form-group contact-search m-b-10">
+                                <input type="text" id="search" class="form-control" ng-model="searchText" placeholder="products...">
+                                <button type="submit" class="btn btn-white"><i class="fa fa-search"></i></button>
+                            </div>
+                            <!-- form-group -->
+                        </form>
+                    </div>
+                    <div class="col-sm-4 ">
+                        <a ui-sref="root.add-product" class="btn btn-default btn-md waves-effect waves-light m-b-30 pull-right" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Add Products</a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table ng-table="tableParams" class="table m-n">
+                        <tr ng-repeat="row in $data | filter:searchText">
+                            <td text-align:left data-title="'Name'" align="left" ng-bind="row.name" header-class="'text-left'"></td>
+                            <td data-title="'Category'" ng-bind="row.code" header-class="'text-left'"></td>
+                            <td data-title="'Image'" align="center"><img height="30px" src="{{$root.getImageFileById}}/{{row.image}}.jpg"></td>
+                            <td data-title="'UOM'" align="left" header-class="'text-left'" ng-bind="row.uom"></td>
+                            <td data-title="'Price'" align="right" header-class="'text-right'" ng-bind="row.price"></td>
+                            <td data-title="'Description'" header-class="'text-left'" align="left" ng-bind="row.description"></td>
+                            <td data-title="'Actions'" align="center">
+                                <a href class="fa fa-edit" ng-click="editProduct(row.categoryId)" data-toggle="modal"></a>
+                                <a href data-toggle="modal" class="fa fa-trash"></a>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

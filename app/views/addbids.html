@@ -1,0 +1,79 @@
+<style>
+.pac-container {
+    z-index: 1051 !important;
+}
+</style>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">&times;</button>
+    <h4 class="modal-title">{{consumerTittle}}</h4>
+</div>
+<div class="modal-body" >
+    <div ng-class="(bid_first)?'hidden':''">
+        <div ng-include="'views/categoriesinclude.html'"></div>
+        <div class="pull-right"style="margin-right:19px">
+            <button type="button" class="btn btn-primary" ng-click="setdatanext()">Next</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
+        </div>
+    </div>
+    <div ng-class="(bid_second)?'':'hidden'">
+        <div class="row" style="margin-top:10px;">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-2 control-label">Select Location</label>
+                    <div class="col-sm-8">
+                        <select ng-model="selectedItem" class="form-control" ng-options="location as location.formattedAddress for location in locations" ng-change="setMap(selectedItem,'drop');reRednerMap();" style="direction:ltr;padding-left:2px;">
+                            <option value="">Select Location</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" style="margin-bottom:5px;margin-top:5px;">
+            <input class="form-control" places-auto-complete ng-model="vm.formattedAddress" type="text" on-place-changed="placeChanged()" ng-focus="disableTap(drop)" style="margin-top:5px;" />
+        </div>
+        <div ng-if="!place && !data.addressId" class="errorDiv">Please Select Location</div>
+        <div class="form-group" style="margin-bottom:5px;">
+            <ng-map map-type-control=false zoom="17" center="{{center}}" zoom-control=false street-view-control=false  style="height: 219px;" ng-if="center">
+                <marker draggable="true" position="{{center}}" on-drag="markerDrag(event)" on-dragend="markerDragEnd()" icon="./images/consumer.svg"></marker>
+            </ng-map>
+            <div class="map-child-target" ng-click="setCurrentLocation()"></div>
+        </div>
+        <div class="panel-body scroll-pane has-scrollbar"style="height:110px">
+        <div class=" scroll-content" tabindex="0" style="right: -17px;">
+        <div>
+        <div class="item row" ng-repeat="category in data.items">
+            <div class="col-sm-3 item-thumbnail">
+                <img ng-src="{{$root.getImageFileById}}/{{category.image}}.jpg" width="70" height="70" />
+            </div>
+            <div class="col-sm-3 col-center">
+                <div style="margin-bottom:5px;">{{category.categoryName}} <i class="fa fa-info-circle" style="color:#cccccc;font-size:20px;"></i></div>
+                <div style="font-size:14px;">Rate/Kg: {{category.price}} Rs</div>
+            </div>
+            <div class="col-sm-3">
+                <div>Qty&nbsp;&nbsp;
+                    <span class="lt" ng-click="BiddecreaseQty($index)">&lt;</span>
+                    <input class="bidinp" id="bidqty{{$index}}" ng-model="data.items[$index].quantity" />
+                    <span class="lt" ng-click="BidincreaseQty($index)">&gt;</span>
+                </div>
+            </div>
+            <div class="col-sm-3">
+                <div>Rate&nbsp;&nbsp;
+                    <span class="lt" ng-click="decreasePrice($index)">&lt;</span>
+                    <input class="bidinp" ng-model="data.items[$index].bidPrice" />
+                    <span class="lt" ng-click="increasePrice($index)">&gt;</span>
+                </div>
+            </div>
+        </div>
+        </div>
+        
+                                        </div>
+        </div>
+        <div class="pull-right"style="marign-top:-5px">
+            <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="validate();placeBid();">Bid</button>
+            <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="backmodal()">Back</button>
+        </div>
+    </div>
+    <div ng-class="(bid_last)?'':'hidden'">
+        <div ng-include="'views/includefiles.html'"></div>
+    </div>
+</div>

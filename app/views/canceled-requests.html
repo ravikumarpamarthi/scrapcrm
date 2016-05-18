@@ -1,0 +1,86 @@
+<div class="container">
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-title">Cancelled Requests</h4>
+            <ol class="breadcrumb">
+                <li><a href="#">ScrapQ</a></li>
+                <li><a href="#">CRM</a></li>
+                <li class="active">Cancelled Requests</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <form role="form">
+                            <div class="form-group contact-search m-b-10">
+                                <input type="text" id="search" class="form-control" placeholder="Search..." ng-model="searchText">
+                                <button type="submit" class="btn btn-white"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <input date-range-picker="" id="daterange4" name="daterange3" class="form-control date-picker ng-pristine ng-valid ng-isolate-scope ng-touched" type="text" ng-model="date" options="opts" required>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <div class="form-group">
+                            <a ng-click="previousDate()" class="btn btn-default btn-md waves-effect waves-light m-b-30" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-arrow-back"></i> </a>
+                            <a ng-click="nextDate()" class="btn btn-default btn-md waves-effect waves-light m-b-30 " data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-arrow-forward"></i> </a>
+                            
+                        </div>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table datatable="ng" class="row-border hover table-responsive table table-striped">
+                        <thead>
+                            <tr>
+                                <th >Conf.Id</th>
+                                <th >Date</th>
+                                <th >Slot</th>
+                                <th >Request Type</th>
+                                <th >Consumer Name</th>
+                                <th >Consumer Mobile</th>
+                                
+                                
+                            </tr>
+                        </thead>
+                        <tbody class="boarder_table-cus">
+                            <tr ng-repeat="row in cancelledSells | filter:searchText" 
+                            ng-click="OpenRequest(row)">
+                                <td > {{row.confirmationId}}</td> 
+                                <td >{{row.preferredDate}}</td>
+                                <td >{{row.preferredSlot}}</td>
+                                <td >{{row.type}}</td>
+                                <td >{{row.consumerName}}</td>
+                                <td >{{row.consumerMobileNo}}</td>
+                                
+                                
+                            </tr>
+                            <tr ng-if="cancelledSells.length==0">
+                                <td></td>
+                                <td></td>
+                                <td></td>
+                                <td  center>No records found </td>
+                                <td></td>
+                                <td></td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="row">
+                    <div class="col-md-6"></div>
+                    <div class="col-md-6">
+                        <div class="pull-right">
+                            <uib-pagination boundary-links="true" total-items="totalAgentRecords" ng-model="currentPage" class="pagination-sm" ng-change="pageChanged(currentPage)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" force-ellipses="true" last-text="&raquo;"></uib-pagination>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+    </div>
+</div>

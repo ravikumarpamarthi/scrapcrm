@@ -1,0 +1,56 @@
+<div class="container">
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-title">Complaints</h4>
+            <ol class="breadcrumb">
+                <li><a href="#">ScrapQ</a></li>
+                <li><a href="#">CRM</a></li>
+                <li class="active">Complaints</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <form role="form">
+                            <div class="form-group contact-search m-b-10">
+                                <input type="text" id="search"ng-model="searchText"  class="form-control" placeholder="complaints...">
+                                <button type="submit" class="btn btn-white"><i class="fa fa-search"></i></button>
+                            </div>
+                            <!-- form-group -->
+                        </form>
+                    </div>
+                   <div class="col-sm-4">
+                        <a ng-click="postComplaints()" class="btn btn-default btn-md waves-effect waves-light m-b-30 pull-right" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Post Complaints</a>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table ng-table="tableParams" class="table m-n">
+                        <tr ng-repeat="row in $data | filter:searchText">
+                            <!-- <td data-title="'consumer Name'" align="center" ng-bind="row.name"></td> -->
+                            <td data-title="'Category'" header-class="'text-left'" ng-bind="row.category"></td>
+                            <!-- <td class="hidden"data-title="'Type'" header-class="'text-left'"  ng-bind="row.type"></td> -->
+                       <!--      <td data-title="'Location'" class="hidden" header-class="'text-left'" ng-bind="row.address"></td> -->
+                            <td data-title="'Description'" header-class="'text-left'" ng-bind="row.description"></td>
+                            <td data-title="'Status'" header-class="'text-left'"  ng-bind="row.status"></td>
+                            <td data-title="'Remarks'" align="center">
+                                <a href class=" fa fa-edit" ng-click="showCompaints(row)" tootltip="asign" data-toggle="modal" data-target="#pickup"></a>
+                                <a href data-target="#pickup" data-toggle="modal" tootltip="asign" class="hidden fa fa-trash"></a>
+                            </td>
+                        </tr>
+                        <tr ng-if="noComplaints">
+                            <td></td>
+                            <td></td>
+                            <td>{{noComplaints}}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

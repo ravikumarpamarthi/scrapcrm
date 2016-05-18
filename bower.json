@@ -1,0 +1,47 @@
+{
+  "name": "scrap-qcrm",
+  "version": "0.0.0",
+  "dependencies": {
+    "angular": "^1.4.0",
+    "bootstrap": "^3.2.0",
+    "angular-animate": "^1.4.0",
+    "angular-cookies": "^1.4.0",
+    "angular-resource": "^1.4.0",
+    "angular-route": "^1.4.0",
+    "angular-sanitize": "^1.4.0",
+    "angular-touch": "^1.4.0",
+    "angular-ui-router": "^0.2.18",
+    "font-awesome": "fontawesome#^4.5.0",
+    "angular-environment": "^1.0.3",
+    "angular-loading-bar": "^0.8.0",
+    "angular-local-storage": "^0.2.4",
+    "angular-growl-v2": "^0.7.9",
+    "angular-bootstrap": "^1.1.2",
+    "angular-base64": "^2.0.5",
+    "angularjs-geolocation": "^0.1.1",
+    "ng-file-upload": "^12.0.1",
+    "angular-messages": "^1.5.0",
+    "enquire": "^2.1.2",
+    "checklist-model": "^0.9.0",
+    "ng-table": "^0.8.3",
+    "angular-momentjs": "^0.2.2",
+    "ngmap": "^1.16.7",
+    "angular-daterangepicker": "~0.2.2",
+    "angular-datatables": "^0.5.4",
+    "datatables": "^1.10.11"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.4.0"
+  },
+  "appPath": "app",
+  "moduleName": "scrapQcrmApp",
+  "overrides": {
+    "bootstrap": {
+      "main": [
+        "less/bootstrap.less",
+        "dist/css/bootstrap.css",
+        "dist/js/bootstrap.js"
+      ]
+    }
+  }
+}

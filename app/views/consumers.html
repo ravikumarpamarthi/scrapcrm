@@ -1,0 +1,270 @@
+<div class="container">
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-title">Consumers</h4>
+            <ol class="breadcrumb">
+                <li><a href="#">ScrapQ</a></li>
+                <li><a href="#">CRM</a></li>
+                <li class="active">Consumers</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-box cards-bottom">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <form name="form" novalidate autocomplete="off">
+                            <div class="form-group contact-search m-b-30">
+                                <input type="text" ng-model="searchText" placeholder="Consumer Email or Mobile" uib-typeahead="address for address in getLocation($viewValue)" typeahead-loading="loadingLocations" typeahead-min-length="4" typeahead-no-results="noResults" name="query" class="form-control">
+                                <button type="submit" class="btn btn-white" ng-click="searchConsumer(searchText)"><i class="fa fa-search"></i></button>
+                                <div ng-messages="form.query.$error" ng-show="form.query.$touched || submitted">
+                                    <div ng-message="required" class="has-error">
+                                        Please Enter Consumer Email/Mobile
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- form-group -->
+                        </form>
+                    </div>
+                    <div class="col-sm-8">
+                        <a ng-click="addConsumers()" class="btn btn-default btn-md waves-effect waves-light m-b-30 pull-right" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Add Consumer</a>
+                    </div>
+                </div>
+                <div class="row heightScroll hidden" ng-if="consumer_list && !noConsumerFound">
+                    <div class="">
+                        <div class="panel panel-default">
+                            <table class="table">
+                                <tr ng-repeat="consumer in consumer_list " ng-click="consumerDetails($index)">
+                                    <td>{{consumer.name}}</td>
+                                    <td>{{consumer.email}}</td>
+                                    <td>{{consumer.mobile}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row heightScroll " ng-if="consumer_list && !noConsumerFound">
+                    <div class="">
+                        <div class="panel panel-default">
+                            <table class="table">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Mobile Number</th>
+                                </tr>
+                                <tr ng-repeat="consumer in consumer_list | filter:searchText" ng-click="consumerDetails($index)">
+                                    <td>{{consumer.name}}</td>
+                                    <td>{{consumer.email}}</td>
+                                    <td>{{consumer.mobile}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div ng-if="noConsumerFound" class="text-center">No Consumer Found</div>
+        <div class="col-lg-12" ng-if="consumerId && !noConsumerFound">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card-box card-boxs">
+                        <div class="row">
+                            <div class="">
+                                <div class="contact-card">
+                                    <div class="row">
+                                        <div class="col-xs-100">
+                                            <a class="pull-left" href="#" id="profileImage">
+                                                <img class="img-circle" src="images/profilepicture.png" alt="">
+                                            </a>
+                                        </div>
+                                        <div class="col-xs-100" id="wrapcontent">
+                                            <div class="member-info ">
+                                                <h4 class="m-t-0 m-b-5 header-title"><b ng-bind="profileEdit.name "></b></h4>
+                                                <p class="text-dark"><i class="md md-call m-r-10"></i><small ng-bind="profileEdit.mobileNo "></small></p>
+                                                <p ng-show="profileEdit.emailId" class="text-dark"><i class="md md-email m-r-10"></i><small ng-bind="profileEdit.emailId "></small></p>
+                                                <p ng-show="profileEdit.address.formattedAddress" class="text-dark"><i class="md md-room m-r-10 "></i><small class="text-line" ng-bind="profileEdit.address.formattedAddress"></small></p>
+                                                <p>
+                                                    <uib-rating ng-model="profileEdit.rating" max="5" read-only="true" on-hover="hoveringOver(value)" state-on="red" on-leave="overStar = null" aria-labelledby="default-rating" name="rating" style="color:blue"></uib-rating>
+                                                </p>
+                                                <p class="text-dark"><i class="fa fa-inr m-r-10"></i><small ng-bind="profileEdit.walletBalance "></small></p>
+                                                <div class="contact-action" style="display:block !important;">
+                                                    <a href ng-click="editProfile()" class="btn btn-success btn-sm"><i class="md md-mode-edit"></i></a>
+                                                    <a href="#" class="btn btn-danger btn-sm hidden"><i class="md md-close"></i></a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card-boxs">
+                        <div class="panel panel-color panel-custom">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading">
+                                <h3 class="panel-title pull-left">Transactions  </h3>
+                                <select ng-model="transactionStatus" ng-change="transactionChange(transactionStatus)" style="margin-left:70px;margin-top:4px;">
+                                    <option value="pending">Pending</option>
+                                    <option value="completed">Completed</option>
+                                </select>
+                                <a ng-click="openconsumersCategories()" class="waves-effect waves-light pull-right btn btn-small btn-default" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Add Sell Request</a>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="table-responsive" style="max-height: 198px;min-height: 198px">
+                                <table class="table word-rap" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th header-class="'text-left'">Conf.Id</th>
+                                            <th header-class="'text-left'">Date</th>
+                                            <th header-class="'text-left'">Slot</th>
+                                            <th header-class="'text-left'">Agent Name</th>
+                                            <!-- <th  header-class="'text-left'">Address</th> -->
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="cursor: pointer;" class="changecursor " ng-repeat="view in pickupsEdit " ng-click="sendData(view) ">
+                                            <td align="left" ng-bind="view.confirmationId "></td>
+                                            <td align="left" ng-bind="view.preferredDate"></td>
+                                            <td align="left" ng-bind="view.preferredSlot "></td>
+                                            <td align="left" ng-bind="view.agentName "></td>
+                                            <!--   <td align="left"  ng-bind="view.agentAddress.formattedAddress"></td> -->
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card-boxs">
+                        <div class="panel panel-color panel-custom">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading">
+                                <h3 class="panel-title pull-left">Referred Information  </h3>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="table-responsive" style="max-height: 198px;min-height: 198px">
+                                <table class="table word-rap" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th header-class="'text-left'">User Type</th>
+                                            <th header-class="'text-left'">Name</th>
+                                            <th header-class="'text-left'">Mobile Number</th>
+                                            <th header-class="'text-left'">Email</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="cursor: pointer;" class="changecursor " ng-repeat="reffered in refferedCodes ">
+                                            <td align="left" ng-bind="reffered.userType "></td>
+                                            <td align="left" ng-bind="reffered.name"></td>
+                                            <td align="left" ng-bind="reffered.mobile "></td>
+                                            <td align="left" ng-bind="reffered.email "></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 hidden">
+                    <div class=" card-boxs">
+                        <div class="panel panel-color panel-custom">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Completed Transactions </h3>
+                            </div>
+                            <div class="table-responsive " style="max-height: 198px;min-height: 198px">
+                                <table class="table word-rap" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th header-class="'text-left'">Conf.Id</th>
+                                            <th header-class="'text-left'">Completed On</th>
+                                            <th header-class="'text-left'">Status</th>
+                                            <th header-class="'text-left'">Agent Name</th>
+                                            <th header-class="'text-left'">Amount</th>
+                                            <th header-class="'text-left'">Payment Mode</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr style="cursor: pointer;" class="changecursor " ng-repeat="view in pickupscompleted " ng-click="sendData(view) ">
+                                            <td align="left" ng-bind="view.confirmationId "></td>
+                                            <td align="left">{{view.completedDate}}</td>
+                                            <td align="left" ng-bind="view.status "></td>
+                                            <td align="left" ng-bind="view.agentName "></td>
+                                            <td align="left" ng-bind="view.totalAmount"></td>
+                                            <td align="left" ng-bind="view.preferredPaymentMethod"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6 hidden">
+                    <div class=" card-boxs">
+                        <div class="panel panel-color panel-custom">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Feedback</h3>
+                            </div>
+                            <div class="table-responsive" style="min-height:198px;max-height: 198px">
+                                <table class="table word-rap">
+                                    <thead>
+                                        <tr>
+                                            <th>Transaction No</th>
+                                            <th> Rating</th>
+                                            <th>Agent Name</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr class="changecursor " ng-repeat="feed in feedbacks " ng-click="viewAppointment(feed) ">
+                                            <td ng-bind="view.transactionNo "></td>
+                                            <td ng-bind="feed.agentName "></td>
+                                            <td ng-bind="view.rating "></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6  ">
+                    <div class="panel panel-color panel-custom">
+                        <!-- Default panel contents -->
+                        <div class="panel-heading">
+                            <h3 class="panel-title pull-left">Complaints</h3>
+                            <a ng-click="addComplaints()" class="waves-effect waves-light pull-right btn btn-small btn-default" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Add Complaints</a>
+                            <div class="clearfix"></div>
+                        </div>
+                        <div class="table-responsive " style="min-height:198px;max-height: 198px">
+                            <table class="table word-rap">
+                                <thead>
+                                    <tr>
+                                        <!-- <th>Date</th> -->
+                                        <th>category</th>
+                                        <th>Description</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr class="changecursor " ng-click="showComplaintsDetails(view)" ng-repeat="view in todayAppointment " ng-click="viewAppointment(view) ">
+                                        <!-- <td ng-bind="view.preferredDate "></td> -->
+                                        <td ng-bind="view.category "></td>
+                                        <td ng-bind="view.description | limitTo: 20"></td>
+                                        <!-- <td ng-bind="view.status "></td> -->
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

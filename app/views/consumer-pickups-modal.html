@@ -1,0 +1,221 @@
+<div class="modal-header">
+    <button type="button" ng-disabled="commentStatus" class="close" data-dismiss="modal" ng-click="cancel()" >&times;</button>    
+    <h4 class="modal-title">Sell Details - &nbsp;{{items.confirmationId}}</h4>
+</div>
+<div class="modal-body ">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Confirmation Id:</label>&nbsp;
+                </div>
+                <div class="col-md-3">
+                    <label>Consumer Details:</label>&nbsp;
+                </div>
+                <div class="col-md-3">
+                    <label for="source" class="form-label">Status: </label>&nbsp;
+                </div>
+                <div class="col-md-3" ng-show="items.agentObjId">
+                    <label>Agent Details:</label>&nbsp;
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span ng-bind="items.confirmationId"></span>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-xs-1"><i class="ti ti-user"></i></div>
+                        <div class="col-xs-10">{{items.consumerName}}</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <span ng-bind="items.status"></span>
+                </div>
+                <div class="col-md-3">
+                    <div class="row" ng-show="items.agentObjId">
+                        <div class="col-xs-1"><i class="ti ti-user"></i></div>
+                        <div class="col-xs-10">{{items.agentName}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <label>Preffered Date:</label>&nbsp;
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-xs-1"><i class="ti ti-mobile"></i></div>
+                        <div class="col-xs-10">{{items.consumerMobileNo}}</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <label>Preffered Slot:</label>&nbsp;
+                </div>
+                <div class="col-md-3">
+                    <div class="row" ng-show="items.agentObjId">
+                        <div class="col-xs-1"><i class="ti ti-mobile"></i></div>
+                        <div class="col-xs-10">{{items.agentMobileNo}}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-3">
+                    <span ng-bind="items.preferredDate"></span>
+                </div>
+                <div class="col-md-3">
+                    <div class="row">
+                        <div class="col-xs-1"><i class="ti ti-location-pin"></i></div>
+                        <div class="col-xs-10">{{items.consumerAddress.formattedAddress}}</div>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <span ng-bind="items.preferredSlot"></span>
+                </div>
+                <div class="col-md-3" ng-show="items.agentObjId">
+                    <div class="row">
+                        <div class="col-xs-1"><i class="ti ti-location-pin"></i></div>
+                        <div class="col-xs-10">{{items.agentAddress.formattedAddress}}</div>
+                    </div>
+                </div>
+            </div>
+            <!-- <div class="col-md-2" ng-if="items.updationAllowed=='YES' && items.statusCode!='REQUEST_COMPLETED' && items.statusCode!='CANCELLED_BY_CONSUMER' && items.statusCode!='REJECTED_BY_CRM'">
+            <label><a href="" ng-click="editSellNow()" class="btn btn-success btn-sm"><i class="md md-mode-edit"></i></a></label>
+        </div> -->
+        </div>
+        <div class="row p-t-20">
+            <a href="" ng-click="editSellNow()" class="btn btn-success btn-sm" ng-if="(items.statusCode !='REQUEST_COMPLETED' ||  items.statusCode =='CANCELLED_BY_CONSUMER') ||  items.statusCode =='REJECTED_BY_CRM'"><i class="md md-mode-edit hidden"></i>Edit </a>
+            
+            <a href="" ng-if="(items.statusCode !='REQUEST_COMPLETED' || items.statusCode =='DECLINED_BY_AGENT' ||  items.statusCode =='CANCELLED_BY_CONSUMER') ||  items.statusCode =='REJECTED_BY_CRM'"  ng-show="items.agentObjId || items.statusCode =='CANCELLED_BY_CONSUMER' || items.statusCode =='DECLINED_BY_AGENT'" ng-click="reAssignAgent()" class="btn btn-success btn-sm"><i class="md md-refresh hidden"></i>Re-assign Agent</a>
+            
+            <a ng-show="items.agentObjId" ng-if="items.statusCode!='REQUEST_COMPLETED' && view.statusCode!='CANCELLED_BY_CONSUMER' && view.statusCode!='REJECTED_BY_CRM'" ng-show="items.agentObjId" href="" ng-click="updateDetails($index);$event.stopPropagation()" class="btn btn-success btn-sm">Complete Request</a>
+            
+            <a ng-show="items.agentObjId" ng-if="items.statusCode!='REQUEST_COMPLETED' && view.statusCode!='CANCELLED_BY_CONSUMER' && view.statusCode!='REJECTED_BY_CRM'" href="" ng-click="declineSellItem($index);$event.stopPropagation()" class="btn btn-success btn-sm" ng-show="items.agentObjId">Decline By Agent</a>
+            
+            <a ng-show="items.agentObjId" ng-if="items.statusCode!='REQUEST_COMPLETED' && view.statusCode!='CANCELLED_BY_CONSUMER' && view.statusCode!='REJECTED_BY_CRM'" ng-show="items.agentObjId" href="" ng-click="cancelSellItem($index);$event.stopPropagation()" class="btn btn-success btn-sm">Cancel By Consumer</a>
+        </div>
+        <div class="row " ng-if="sellComments">
+            <div class="col col-xs-12">
+                <h5>Sell Comments</h5>
+                <table class="table table-bordered table-responsive table-striped">
+                    <thead>
+                        <tr>
+                            <th>Performed By</th>
+                            <th>Performed On</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="comment in sellComments">
+                            <td>{{comment.performedBy}}</td>
+                            <td>{{comment.performedOn}}</td>
+                            <td>{{comment.description}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row" ng-show="items.items.length>0">
+            <div class="col col-xs-12">
+                <h5>Item Details:</h5>
+                <table class="table table-bordered table-responsive table-striped table-condensed">
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Price/Unit</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="item in items.items">
+                            <td>{{item.categoryName}}</td>
+                            <td>{{item.pricePerUnit}}</td>
+                            <td>{{item.quantity}}</td>
+                            <td>{{item.amount}}</td>
+                        </tr>
+                        <tr ng-show="items.statusCode=='REQUEST_COMPLETED'">
+                            <td colspan="2" style="text-align: right"><b>Total</b></td>
+                            <td ng-bind="items.totalQuantity"></td>
+                            <td ng-bind="items.totalAmount"></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row ">
+            <div class="col col-xs-12">
+                <h5>Activities</h5>
+                <table class="table table-bordered table-responsive table-striped">
+                    <thead>
+                        <tr>
+                            <th>Performed By</th>
+                            <th>Performed On</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="activity in items.activities">
+                            <td>{{activity.performedBy}}</td>
+                            <td>{{activity.performedOn}}</td>
+                            <td>{{activity.description}}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="row">
+            <form name="commentForm">
+                <div class="col-md-8">
+                    <textarea class="form-control" name="addcomments" placeholder="Add Comments" ng-model="comments.comment" ng-required="commentStatus">
+                    </textarea>
+                </div>
+                <div class="col-md-4">
+                    <button type="button" class="btn btn-default" ng-click="saveComment()">Save</button>
+                </div>
+            </form>
+        </div>
+        <div class="row" ng-if="feedback.length>0">
+            <div class="col col-xs-12">
+                <h5>Feed Back</h5>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="col-md-2">Rating</div>
+                        <div class="col-md-3 star-padding">
+                            <uib-rating ng-model="feedItem.rating" max="5" readonly="isReadonly" on-hover="hoveringOver(value)" state-on="red" on-leave="overStar = null" aria-labelledby="default-rating" name="rating" required></uib-rating>
+                        </div>
+                        <div class="col-md-3" ng-class="(feedItem.rating==1)?'text-danger':(feedItem.rating==2)?'text-warning':(feedItem.rating==3)?'text-info':(feedItem.rating==4)?'text-primary':(feedItem.rating==5)?'text-success':''">
+                            {{rating.description}}
+                        </div>
+                        <div class="row col-md-10" ng-show="feedItem.rating">
+                            <div class="checkbox" ng-repeat="ratingTag in ratingTags">
+                                <input type="checkbox" data-checklist-model="feedItem.feedback" data-checklist-value="ratingTag" ng-required="(feedItem.feedback && feedItem.feedback.length>0)?false:true" name="feedbacktype">
+                                <label for="checkbox0">
+                                    {{ratingTag}}
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="col-md-2">Comments</div>
+                            <div class="col-md-5">
+                                <textarea class="form-control" name="comment" ng-model="feedItem.comment" required></textarea>
+                            </div>
+                            <div class="col-md-2 p-t-20 ">
+                                <button type="button" class="btn btn-primary  primary-button" ng-click="save();validate()">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <br>
+                <div class="row">
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="ok(items.status)" ng-disabled="commentStatus">Done</button>
+    <span ng-show="commentStatus">Please Add Comment.</span>
+</div>

@@ -1,0 +1,199 @@
+<div class="container">
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-title">Agents</h4>
+            <ol class="breadcrumb">
+                <li><a href="#">ScrapQ</a></li>
+                <li><a href="#">CRM</a></li>
+                <li class="active">Agents</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-box cards-bottom">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <form name="form" novalidate autocomplete="off">
+                            <div class="form-group contact-search m-b-30">
+                                <input type="text" id="search" class="form-control" ng-model="searchText" placeholder="Agent Name or Mobile" name="query">
+                                <button ng-click="searchAgent(searchText)" type="submit" class="btn btn-white"><i class="fa fa-search"></i></button>
+                                <div ng-messages="form.query.$error" ng-show="form.query.$touched || submitted">
+                                    <div ng-message="required" class="has-error">
+                                        Please Enter Agent Email/Mobile
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="col-sm-8">
+                        <a href ng-click="addAgents()" class="btn btn-default btn-md waves-effect waves-light m-b-30 pull-right" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Add Agent</a>
+                    </div>
+                </div>
+                <div class="row heightScroll hidden" ng-if="agent_list && !noAgentFound && !length0">
+                    <div class="">
+                        <div class="panel panel-default">
+                            <table class="table">
+                                <tr ng-repeat="agent in agent_list " ng-click="agentDetails($index)">
+                                    <td>{{agent.name}}</td>
+                                    <td>{{agent.email}}</td>
+                                    <td>{{agent.mobile}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class="row heightScroll" ng-if="agent_list && !noAgentFound && !length0">
+                    <div class="">
+                        <div class="panel panel-default">
+                            <table class="table">
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Mobile Number</th>
+                                </tr>
+                                <tr ng-repeat="agent in agent_list | filter:searchText" ng-click="agentDetails($index)">
+                                    <td>{{agent.name}}</td>
+                                    <td>{{agent.email}}</td>
+                                    <td>{{agent.mobile}}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row ">
+        <div ng-if="noAgentFound" class="text-center">No Agent Found</div>
+        <div class="col-lg-12" ng-if="agentId && !noAgentFound && length0 ">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card-box card-boxs">
+                        <div class="row">
+                            <div class="">
+                                <div class="contact-card">
+                                    <div class="col-xs-100">
+                                        <a class="pull-left" href="#" id="profileImage">
+                                            <img class="img-circle" src="images/profilepicture.png" alt="">
+                                        </a>
+                                    </div>
+                                    <div class="col-xs-100" id="wrapcontent">
+                                        <div class="member-info">
+                                            <h4 class="m-t-0 m-b-5 header-title"><b ng-bind="profileEdit.name "></b></h4>
+                                            <p class="text-dark"><i class="md md-call m-r-10"></i><small ng-bind="profileEdit.mobileNo "></small></p>
+                                            <p ng-show="profileEdit.emailId" class="text-dark"><i class="md md-email m-r-10"></i><small ng-bind="profileEdit.emailId "></small></p>
+                                            <p ng-show="profileEdit.address.formattedAddress" class="text-dark"><i class="md md-room m-r-10"></i><small class="text-line" ng-bind="profileEdit.address.formattedAddress"></small></p>
+                                            <p>
+                                                <uib-rating ng-model="profileEdit.rating" max="5" read-only="true" on-hover="hoveringOver(value)" state-on="red" on-leave="overStar = null" aria-labelledby="default-rating" name="rating" style="color:blue"></uib-rating>
+                                            </p>
+                                            <p class="text-dark"><i class="fa fa-inr m-r-10"></i><small ng-bind="profileEdit.walletBalance "></small></p>
+                                            <div class="contact-action" style="display:block !important;">
+                                                <a href ng-click="editAgentDetails(profileEdit.agentId) " class="btn btn-success btn-sm"><i class="md md-mode-edit"></i></a>
+                                                <a href="#" class="btn btn-danger btn-sm hidden"><i class="md md-close"></i></a>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class="card-boxs">
+                        <div class="panel panel-color panel-custom">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Pending Payments</h3>
+                            </div>
+                            <div class="table-responsive" style="max-height: 198px;min-height: 198px">
+                                <table class="table word-rap">
+                                    <thead>
+                                        <tr>
+                                            <th header-class="'text-left'">Date</th>
+                                            <th header-class="'text-left'"> Payment Type</th>
+                                            <th header-class="'text-left'">status</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!--   <tr class="changecursor " >
+                                        <td ng-bind="view.preferredDate "></td>
+                                        <td ng-bind="view.consumerName "></td>
+                                        <td ng-bind="view.address "></td>
+                                        <td ng-bind="view.status "></td>
+                                    </tr> -->
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="">
+                        <div class="panel panel-color panel-custom">
+                            <div class="panel-heading">
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <h3 class="panel-title">Transactions</h3>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <select ng-model="transactionStatus" ng-change="transactionChange(transactionStatus)">
+                                            <option value="pending">Pending</option>
+                                            <option value="completed">Completed</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="panel-body">
+                                <div>
+                                    <table class="table">
+                                        <thead>
+                                            <tr>
+                                                <th header-class="'text-left'">Conf.Id</th>
+                                                <th header-class="'text-left'">Date</th>
+                                                <th header-class="'text-left'">Slot</th>
+                                                <th header-class="'text-left'" class="hidden">Status</th>
+                                                <th header-class="'text-left'">Consumer Name</th>
+                                                <th header-class="'text-left'">Address</th>
+                                                <th header-class="'text-left'">Actions</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr ng-if="totalAgentRecords==0">
+                                                <td colspan="7" align="center"> No Records found</td>
+                                            </tr>
+                                            <tr class="changecursor " ng-repeat="view in todayAppointment " ng-click="viewAppointment(view) ">
+                                                <td ng-bind="view.confirmationId "></td>
+                                                <td ng-bind="view.preferredDate"></td>
+                                                <td ng-bind="view.preferredSlot"></td>
+                                                <td ng-bind="view.status " class="hidden"></td>
+                                                <td ng-bind="view.consumerName "></td>
+                                                <td ng-bind="view.consumerAddress.formattedAddress "></td>
+                                                <td ng-if="view.statusCode!='REQUEST_COMPLETED' && view.statusCode!='CANCELLED_BY_CONSUMER' && view.statusCode!='REJECTED_BY_CRM'">
+                                                    <label><a href="" ng-click="updateDetails(view.confirmationId);$event.stopPropagation()"><i class="md md-mode-edit"></i></a></label>
+                                                    <label><a href="" ng-click="declineSellItem(view,$index);$event.stopPropagation()"><i class="md md-delete"></i></a></label>
+                                                    <label><a href="" ng-click="rescheduleConfirmation(view,$index);$event.stopPropagation()"><i class="md md-restore"></i></a></label>
+                                                    <!-- <label><a href="" ng-click="edi();$event.stopPropagation()"><i class="md md-cancel"></i></a></label> -->
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                    <div class="row">
+                                        <div class="col-md-6"></div>
+                                        <div class="col-md-6">
+                                            <div class="pull-right">
+                                                <uib-pagination boundary-links="true" total-items="totalAgentRecords" ng-model="currentPage" class="pagination-sm" ng-change="pageChanged(currentPage)" previous-text="&lsaquo;" next-text="&rsaquo;" first-text="&laquo;" force-ellipses="true" last-text="&raquo;"></uib-pagination>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

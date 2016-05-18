@@ -1,0 +1,56 @@
+<div class="container">
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-title">Pending Requests</h4>
+            <ol class="breadcrumb">
+                <li><a href="#">ScrapQ</a></li>
+                <li><a href="#">CRM</a></li>
+                <li class="active">Pending Requests</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-box">
+                <div class="row">
+                    <div class="col-sm-8">
+                        <form role="form">
+                            <div class="form-group contact-search m-b-10">
+                                <input type="text" id="search" class="form-control" ng-model="searchText" placeholder="Search...">
+                                <button type="submit" class="btn btn-white"><i class="fa fa-search"></i></button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+                <div class="table-responsive">
+                    <table ng-table="tableParams" class="table m-n ">
+                        <tr class="changecursor" ng-repeat="row in $data | filter:searchText" ng-click="OpenRequest(row)">
+                        <td data-title="'Conf.Id'"  header-class="'text-left'" ng-bind="row.confirmationId"></td>
+                            <td data-title="'Request Type'"  header-class="'text-left'" ng-bind="row.type"></td>
+                            <td data-title="'Consumer Name'" header-class="'text-left'"  ng-bind="row.consumerName"></td> 
+                             <td header-class="'text-left'" data-title="'Consumer Mobile'"align="left"   ng-bind="row.consumerMobileNo"></td>
+                            <td data-title="'Agent Name'" header-class="'text-left'"  ng-bind="row.agentName"></td>
+                           
+                           <!--  <td data-title="'Address'" header-class="'text-left'" ng-bind="row.consumerAddress.formattedAddress"></td> -->
+                            <!--  <td data-title="'Email'" align="center" ng-bind="row.consumerEmailId"></td> -->
+                           
+                              <td data-title="'Agent Mobile'" header-class="'text-left'"  align="left"  ng-bind="row.agentMobileNo"></td> 
+                              <td data-title="'Status'" header-class="'text-left'"   ng-bind="row.status"></td>
+                           <!--  <td data-title="'Actions'" align="center">
+                                <a href ng-click="OpenRequest(row)" class="fa fa-check-circle"></a>
+                            </td> -->
+                        </tr>
+                         <tr ng-if="noComplaints">
+                            <td></td>
+                            <td></td>
+                            <td>{{noComplaints}}</td>
+                            <td></td>
+                            <td></td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

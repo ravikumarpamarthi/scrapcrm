@@ -1,0 +1,85 @@
+<style>
+.pac-container {
+    z-index: 1051 !important;
+}
+</style>
+<div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">&times;</button>
+    <h4 class="modal-title">Post Complaint</h4>
+</div>
+<div class="modal-body" style="min-height: 500px">
+    <div class="row hidden ">
+        <div class="col-sm-6 col-sm-offset-1">
+            <div class="form-group contact-search m-b-10">
+                <input type="text" placeholder="Enter name or Email or Mobile" class="form-control " ng-model="searchText" id="search">
+            </div>
+            <!-- form-group -->
+        </div>
+        <div class="col-sm-3 p-t-10">
+            <div class="radio radio-info radio-inline">
+                <input type="radio" id="inlineRadio1" ng-model="type" value="Consumer" name="radioInline">
+                <label for="inlineRadio1"> Consumer </label>
+            </div>
+            <div class="radio radio-info radio-inline">
+                <input type="radio" id="inlineRadio1" ng-model="type"value="Agent" name="radioInline">
+                <label for="inlineRadio1"> Agent </label>
+            </div>
+        </div>
+        <div class="col-sm-2">
+            <a data-overlaycolor="#36404a" data-overlayspeed="200" data-plugin="custommodal" data-animation="fadein" class="btn btn-default btn-md waves-effect waves-light m-b-20" ng-click="postComplaints(searchText)"> Submit</a>
+        </div>
+    </div>
+    <form class="form-horizontal row-border " action="" name="complaintForm" novalidate >
+        <div class="form-group hidden">
+            <label class="col-sm-4 control-label">Customer Name</label>
+            <div class="col-sm-7">
+                <p class="form-control-static" ng-bind="name"></p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">Category<span class="has-error">*</span>
+            </label>
+            <div class="col-sm-7">
+                <select class="form-control" id="source" name="complaintCategory" ng-options="categorie.name as categorie.value for categorie in categories" ng-model="data.category" ng-change="changeCategories(data.category)" required>
+                    <option value="">Select</option>
+                </select>
+                <p class="help-block has-error" ng-show="!isCategory && complaintForm.complaintCategory.$dirty && complaintForm.complaintCategory.$invalid && complaintForm.complaintCategory.$error.required"> Required!</p>
+                <p class="help-block has-error" ng-show="isCategory && complaintForm.complaintCategory.$error.required"> Required!</p>
+            </div>
+        </div>
+        <!-- <div class="form-group">
+            <label class="col-sm-4 control-label">ComplaintType<span class="has-error">*</span>
+            </label>
+            <div class="col-sm-7">
+                <select class="form-control" id="source1" ng-options="categorytype.value as categorytype.value for categorytype in compaintType" name="complaintType" ng-model="data.type" required>
+                    <option value="">Select</option>
+                </select>
+                <p class="help-block has-error" ng-show="!isType && complaintForm.complaintType.$dirty && complaintForm.complaintType.$invalid && complaintForm.complaintType.$error.required" > Required!</p>
+                <p class="help-block has-error" ng-show="isType && complaintForm.complaintType.$error.required"> Required!</p>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-4 control-label">ComplaintLocation<span class="has-error">*</span>
+            </label>
+            <div class="col-sm-7">
+                <input type="text" name="complaintLocation" places-auto-complete class="form-control" ng-model="data.address" required>
+                <p class="help-block has-error" ng-show="!isLocation && complaintForm.complaintLocation.$dirty && complaintForm.complaintLocation.$invalid && complaintForm.complaintLocation.$error.required"> Required!</p>
+                <p class="help-block has-error" ng-show="isLocation && complaintForm.complaintLocation.$error.required"> Required!</p>
+            </div>
+        </div> -->
+        <div class="form-group">
+            <label class="col-sm-4 control-label">ComplaintDescription<span class="has-error">*</span>
+            </label>
+            <div class="col-sm-7">
+                <textarea class="form-control" name="complaintDescription" ng-model="data.description" required></textarea>
+                <p class="help-block has-error" ng-show="!isDescription && complaintForm.complaintDescription.$dirty && complaintForm.complaintDescription.$invalid && complaintForm.complaintDescription.$error.required">Required!</p>
+                <p class="help-block has-error" ng-show="isDescription && complaintForm.complaintDescription.$error.required"> Required!</p>
+            </div>
+        </div>
+        <div class="col-sm-4 col-sm-offset-4 clear-fix"><button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="validate();save()">Submit</button>
+    <button type="button" class="btn  btn-default" data-dismiss="modal" ng-click="cancel()">Close</button></div>
+    </form>
+     <div class="form-group">
+    <div ng-bind="nodata"></div></div>
+</div>
+

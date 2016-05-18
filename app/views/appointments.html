@@ -1,0 +1,151 @@
+<div class="container">
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-title">Appointments</h4>
+            <ol class="breadcrumb">
+                <li><a href="#">ScrapQ</a></li>
+                <li><a href="#">CRM</a></li>
+                <li class="active">Appointments</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row hidden ">
+        <div class="col-lg-12">
+            <div class="card-box cards-bottom">
+                <div class="row">
+                    <div class="col-sm-4">
+                        <form name="form" novalidate>
+                            <div class="form-group contact-search m-b-30">
+                                <input type="text" ng-model="searchText" placeholder="Consumer Email or Mobile" name="query" required class="form-control">
+                                <button type="submit" class="btn btn-white" ng-click="searchConsumer(searchText)"><i class="fa fa-search"></i></button>
+                                <div ng-messages="form.query.$error" ng-show="form.query.$touched || submitted">
+                                    <div ng-message="required" class="has-error">
+                                        Please Enter Consumer Email/Mobile
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- form-group -->
+                        </form>
+                    </div>
+                    <div class="col-sm-8">
+                        <a ng-click="addConsumers()" class="btn btn-default btn-md waves-effect waves-light m-b-30 pull-right" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Add Consumer</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class="card-boxs">
+                        <div class="panel panel-color panel-custom">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading">
+                                <h3 class="panel-title pull-left">Today Pending </h3>
+                                <div class="clearfix"></div>
+                            </div>
+                            <div class="table-responsive" style="max-height: 198px;min-height: 198px">
+                                <table ng-table="pendingParams" class="table m-n word-rap">
+                                    <tr class="changecursor" ng-repeat="row in $data | filter:searchText" ng-click="requestModel(row)">
+                                        <td data-title="'Conf.Id'" header-class="'text-left'" ng-bind="row.confirmationId"></td>
+                                        <td data-title="'Request Type'" header-class="'text-left'" ng-bind="row.type"></td>
+                                        <td data-title="'Consumer Name'" header-class="'text-left'" ng-bind="row.consumerName"></td>
+                                        <td header-class="'text-left'" data-title="'Consumer Mobile'" align="left" ng-bind="row.consumerMobileNo"></td>
+                                        <td data-title="'Agent Name'" header-class="'text-left'" ng-bind="row.agentName"></td>
+                                        <!--  <td data-title="'Address'" header-class="'text-left'" ng-bind="row.consumerAddress.formattedAddress"></td> -->
+                                        <!--  <td data-title="'Email'" align="center" ng-bind="row.consumerEmailId"></td> -->
+                                        <td data-title="'Agent Mobile'" header-class="'text-left'" align="left" ng-bind="row.agentMobileNo"></td>
+                                        <td data-title="'Status'" header-class="'text-left'" ng-bind="row.status"></td>
+                                        <!--  <td data-title="'Actions'" align="center">
+                                <a href ng-click="OpenRequest(row)" class="fa fa-check-circle"></a>
+                            </td> -->
+                                    </tr>
+                                    <tr ng-if="pending">
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{pending}}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <div class=" card-boxs">
+                        <div class="panel panel-color panel-custom">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Today UnAssigned </h3>
+                            </div>
+                            <div class="table-responsive" style="max-height: 198px;min-height: 198px">
+                                <table ng-table="unassignedParams" class="table m-n word-rap">
+                                    <tr class="changecursor" ng-repeat="row in $data | filter:searchText" ng-click="OpenRequest(row)">
+                                        <td data-title="'Conf.Id'" header-class="'text-left'" ng-bind="row.confirmationId"></td>
+                                        <td data-title="'Request Type'" header-class="'text-left'" ng-bind="row.type"></td>
+                                        <td data-title="'Consumer Name'" header-class="'text-left'" ng-bind="row.consumerName"></td>
+                                        <td header-class="'text-left'" data-title="'Consumer Mobile'" align="left" ng-bind="row.consumerMobileNo"></td>
+                                        <td data-title="'Status'" header-class="'text-left'" ng-bind="row.status"></td>
+                                        <!--  <td data-title="'Actions'" align="center">
+                                <a href ng-click="OpenRequest(row)" class="fa fa-check-circle"></a>
+                            </td> -->
+                                    </tr>
+                                    <tr ng-if="unassigned">
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{unassigned}}</td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row" style="height:20px;">
+            </div>
+            <div class="row">
+                <div class="col-lg-6">
+                    <div class=" card-boxs">
+                        <div class="panel panel-color panel-custom">
+                            <!-- Default panel contents -->
+                            <div class="panel-heading">
+                                <h3 class="panel-title">Today Completed </h3>
+                            </div>
+                            <div class="table-responsive" style="max-height: 198px;min-height: 198px">
+                                <table ng-table="completedParams" class="table m-n word-rap">
+                                    <tr class="changecursor" ng-repeat="row in $data | filter:searchText" ng-click="requestModel(row)">
+                                        <td data-title="'Conf.Id'" header-class="'text-left'" ng-bind="row.confirmationId"></td>
+                                        <td data-title="'Request Type'" header-class="'text-left'" ng-bind="row.type"></td>
+                                        <td data-title="'Consumer Name'" header-class="'text-left'" ng-bind="row.consumerName"></td>
+                                        <td header-class="'text-left'" data-title="'Consumer Mobile'" align="left" ng-bind="row.consumerMobileNo"></td>
+                                        <td data-title="'Agent Name'" header-class="'text-left'" ng-bind="row.agentName"></td>
+                                        <!--  <td data-title="'Address'" header-class="'text-left'" ng-bind="row.consumerAddress.formattedAddress"></td> -->
+                                        <!--  <td data-title="'Email'" align="center" ng-bind="row.consumerEmailId"></td> -->
+                                        <td data-title="'Agent Mobile'" header-class="'text-left'" align="left" ng-bind="row.agentMobileNo"></td>
+                                        <td data-title="'Status'" header-class="'text-left'" ng-bind="row.status"></td>
+                                        <!--  <td data-title="'Actions'" align="center">
+                                <a href ng-click="OpenRequest(row)" class="fa fa-check-circle"></a>
+                            </td> -->
+                                    </tr>
+                                    <tr ng-if="completed">
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                        <td>{{completed}}</td>
+                                        <td></td>
+                                        <td></td>
+                                        <td></td>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>

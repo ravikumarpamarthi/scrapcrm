@@ -1,0 +1,52 @@
+<div class="left side-menu">
+    <div class="sidebar-inner slimscrollleft">
+        <div id="sidebar-menu">
+            <ul>
+                <li class="text-muted menu-title">Navigation</li>
+                <li class="">
+                    <a ui-sref="root.dashboard" class="waves-effect" ui-sref-active="active"><i class="ti-home"></i> <span> Dashboard </span> </a>
+                    <!-- <ul class="list-unstyled">
+                                    <li class="active"><a href="index.html">Dashboard 1</a></li>
+                                    <li><a href="dashboard_2.html">Dashboard 2</a></li>
+                                    <li><a href="dashboard_3.html">Dashboard 3</a></li>
+                                </ul> -->
+                </li>
+                <li class="">
+                    <a ui-sref="root.consumer" ui-sref-active="active" class="waves-effect"><i class="ti-user"></i> <span > Consumers </span> </a>
+                </li>
+                <li class="">
+                    <a ui-sref="root.agents" ng-click="root.agents" class="waves-effect" ui-sref-active="active"><i class="md md-people-outline"></i> <span> Agents </span> </a>
+                </li>
+                <li class="">
+                    <a ui-sref="root.pending-otps" ng-click="root.pending-otps" ui-sref-active="active" class="waves-effect"><i class="md md-people-outline"></i> <span> Pending Registrations  </span> </a>
+                </li>
+                <li class="has_sub">
+                    <a ui-sref="root.appointments" ng-click="root.appointments"href class="waves-effect"><i class="md md-people-outline"></i> <span> Appointments  </span> </a>
+                    <ul class="list-unstyled">
+                        <li class="">
+                            <a ng-click="gotoPendingRequests()"
+                             ui-sref-active="active" class="waves-effect"><i class="md md-list"></i> <span>Pending Requests </span> </a>
+                        </li>
+                        <li class="">
+                            <a ng-click="gotoUnassignedRequests()" ui-sref-active="active" class="waves-effect"><i class="md md-list"></i> <span> UnAssigned Agents </span> </a>
+                        </li>
+                        <li class="">
+                            <a ng-click="gotoCompletedRequests()" ui-sref-active="active" class="waves-effect"><i class="md md-list"></i> <span> Completed Requests </span> </a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="hidden">
+                    <a ui-sref="root.bids" ng-click="root.bids" ui-sref-active="active" class="waves-effect"><i class="md md-announcement"></i> <span> Bids </span> </a>
+                </li>
+                <li class="">
+                    <a ui-sref="root.products" ng-click="root.products" ui-sref-active="active" class="waves-effect"><i class="md  md-sd-storage"></i> <span> Products </span> </a>
+                </li>
+                <li class="">
+                    <a ui-sref="root.complaints" ng-click="root.complaints" ui-sref-active="active" class="waves-effect"><i class="md md-insert-comment"></i> <span> Complaints </span> </a>
+                </li>
+            </ul>
+            <div class="clearfix"></div>
+        </div>
+        <div class="clearfix"></div>
+    </div>
+</div>

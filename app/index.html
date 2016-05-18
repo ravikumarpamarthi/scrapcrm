@@ -1,0 +1,171 @@
+<!doctype html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width">
+    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
+    <!-- build:css(.) styles/vendor.css -->
+    <!-- bower:css -->
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="bower_components/angular-loading-bar/build/loading-bar.css" />
+    <link rel="stylesheet" href="bower_components/angular-growl-v2/build/angular-growl.css" />
+    <link rel="stylesheet" href="bower_components/ng-table/dist/ng-table.min.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-daterangepicker/daterangepicker.css" />
+    <link rel="stylesheet" href="bower_components/datatables/media/css/jquery.dataTables.css" />
+    <!-- endbower -->
+    <!-- endbuild -->
+    <!-- build:css(.tmp) styles/main.css -->
+    <link rel="stylesheet" href="styles/morris.css">
+    <link href="styles/core.css" rel="stylesheet" type="text/css" />
+    <link href="styles/components.css" rel="stylesheet" type="text/css" />
+    <link href="styles/icons.css" rel="stylesheet" type="text/css" />
+    <link href="styles/pages.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" href="styles/style.css"type="text/css">
+    <link rel="stylesheet" href="styles/main.css"type="text/css">
+    <link rel="stylesheet" href="styles/fullcalendar.css" />
+    <!-- endbuild -->
+</head>
+
+<body class="fixed-left" ng-app="scrapQcrmApp">
+    <!--[if lte IE 8]>
+      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <![endif]-->
+    <!-- Add your site or application content here -->
+    <div id="wrapper">
+        <div class=" topbar" ui-view="header"></div>
+        
+                <div ui-view="header-aside"></div>
+            
+        <div class="content-page">
+            <div class="content" ui-view="content"></div>
+            <div ui-view="footer"></div>
+            
+        </div>
+       
+    </div>
+    <div growl top-center></div>
+    <script src="https://maps.google.com/maps/api/js?libraries=placeses,visualization,drawing,geometry,places"></script>
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
+  <!--   <script>
+    ! function(A, n, g, u, l, a, r) {
+        A.GoogleAnalyticsObject = l, A[l] = A[l] || function() {
+                (A[l].q = A[l].q || []).push(arguments)
+            }, A[l].l = +new Date, a = n.createElement(g),
+            r = n.getElementsByTagName(g)[0], a.src = u, r.parentNode.insertBefore(a, r)
+    }(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
+
+    ga('create', 'UA-XXXXX-X');
+    ga('send', 'pageview');
+    </script> -->
+    <!-- build:js(.) scripts/vendor.js -->
+    <!-- bower:js -->
+    <script src="bower_components/jquery/dist/jquery.js"></script>
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-cookies/angular-cookies.js"></script>
+    <script src="bower_components/angular-resource/angular-resource.js"></script>
+    <script src="bower_components/angular-route/angular-route.js"></script>
+    <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
+    <script src="bower_components/angular-touch/angular-touch.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/angular-environment/dist/angular-environment.js"></script>
+    <script src="bower_components/angular-loading-bar/build/loading-bar.js"></script>
+    <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
+    <script src="bower_components/angular-growl-v2/build/angular-growl.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-base64/angular-base64.js"></script>
+    <script src="bower_components/angularjs-geolocation/src/geolocation.js"></script>
+    <script src="bower_components/ng-file-upload/ng-file-upload.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/enquire/dist/enquire.js"></script>
+    <script src="bower_components/checklist-model/checklist-model.js"></script>
+    <script src="bower_components/ng-table/dist/ng-table.min.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/angular-momentjs/angular-momentjs.js"></script>
+    <script src="bower_components/ngmap/build/scripts/ng-map.js"></script>
+    <script src="bower_components/bootstrap-daterangepicker/daterangepicker.js"></script>
+    <script src="bower_components/angular-daterangepicker/js/angular-daterangepicker.js"></script>
+    <script src="bower_components/datatables/media/js/jquery.dataTables.js"></script>
+    <script src="bower_components/angular-datatables/dist/angular-datatables.js"></script>
+    <script src="bower_components/angular-datatables/dist/plugins/bootstrap/angular-datatables.bootstrap.js"></script>
+    <script src="bower_components/angular-datatables/dist/plugins/colreorder/angular-datatables.colreorder.js"></script>
+    <script src="bower_components/angular-datatables/dist/plugins/columnfilter/angular-datatables.columnfilter.js"></script>
+    <script src="bower_components/angular-datatables/dist/plugins/light-columnfilter/angular-datatables.light-columnfilter.js"></script>
+    <script src="bower_components/angular-datatables/dist/plugins/colvis/angular-datatables.colvis.js"></script>
+    <script src="bower_components/angular-datatables/dist/plugins/fixedcolumns/angular-datatables.fixedcolumns.js"></script>
+    <script src="bower_components/angular-datatables/dist/plugins/fixedheader/angular-datatables.fixedheader.js"></script>
+    <script src="bower_components/angular-datatables/dist/plugins/scroller/angular-datatables.scroller.js"></script>
+    <script src="bower_components/angular-datatables/dist/plugins/tabletools/angular-datatables.tabletools.js"></script>
+    <script src="bower_components/angular-datatables/dist/plugins/buttons/angular-datatables.buttons.js"></script>
+    <script src="bower_components/angular-datatables/dist/plugins/select/angular-datatables.select.js"></script>
+    <!-- endbower -->
+    <!-- endbuild -->
+
+    <!-- build:js js/demo.min.js -->
+     <script src="scripts/external/fullcalendar/fullcalendar.js"></script>
+     <script src="scripts/external/angular-ui-calendar/calendar.js"></script>
+    <!-- endbuild -->
+
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/about.js"></script>
+    <script src="scripts/controllers/header.js"></script>
+    <script src="scripts/controllers/dashboard.js"></script>
+    <script src="scripts/services/dashboard.js"></script>
+     <script src="scripts/services/http-service.js"></script>
+    <script src="scripts/services/global.js"></script>
+    <script src="scripts/services/pending-otps.js"></script>
+    <script src="scripts/services/authentication.js"></script>
+    <script src="scripts/services/products.js"></script>
+    <script src="scripts/services/agent-appointments.js"></script>
+    <script src="scripts/services/agent-pickups.js"></script>
+    <script src="scripts/services/dashboard.js"></script>
+    <script src="scripts/services/sell-now-serv.js"></script>
+    <script src="scripts/services/bid-serv.js"></script>
+    <script src="scripts/controllers/consumer.js"></script>
+    <script src="scripts/services/consumer.js"></script>
+    <script src="scripts/controllers/add-user.js"></script>
+    <script src="scripts/controllers/loginCtrl.js"></script>
+     <script src="scripts/directives/timer-format.js"></script>
+    <script src="scripts/directives/timepicker-pop.js"></script>
+    <script src="scripts/directives/googleplace.js"></script>
+    <script src="scripts/controllers/agents.js"></script>
+    <script src="scripts/controllers/agent-edit-profile.js"></script>
+    <script src="scripts/controllers/consumer-edit-profile.js"></script>
+    <script src="scripts/controllers/pending-otps.js"></script>
+    <script src="scripts/controllers/pending-requests.js"></script>
+    <script src="scripts/controllers/pending-request-modal.js"></script>
+    <script src="scripts/controllers/panding-otp-modal.js"></script>
+    <script src="scripts/controllers/bids.js"></script>
+    <script src="scripts/controllers/complaints.js"></script> 
+    <script src="scripts/controllers/postcomplaints.js"></script>
+    <script src="scripts/controllers/products.js"></script>
+    <script src="scripts/controllers/add-product.js"></script>
+    <script src="scripts/controllers/edit-product.js"></script>
+    <script src="scripts/controllers/complaints-modal.js"></script>
+    <script src="scripts/controllers/bids-modal.js"></script>
+    <script src="scripts/controllers/sells-consumers.js"></script>
+    <script src="scripts/controllers/add-items.js"></script> 
+    <script src="scripts/controllers/addbids.js"></script>
+    <script src="scripts/controllers/addconsumers.js"></script>
+    <script src="scripts/controllers/consumer-pickups-modal.js"></script>
+    <script src="scripts/controllers/un-assigned.js"></script>
+    <script src="scripts/controllers/completed-requests.js"></script>
+    <script src="scripts/controllers/cancelled-requests.js"></script>
+    <script src="scripts/controllers/declined-requests.js"></script>
+    <script src="scripts/controllers/agent-today-appointments.js"></script>
+    <script src="scripts/controllers/agent-upcoming-appointments.js"></script> 
+    <script src="scripts/controllers/appointments.js"></script>
+    <script src="scripts/controllers/reassign-agent.js"></script> 
+    <script src="scripts/controllers/DeleteConfirm.js"></script>  
+     <script src="scripts/controllers/reschedule-modal.js"></script>
+     <script src="scripts/controllers/complaints-view-modal.js"></script>
+    <!-- endbuild -->
+</body>
+
+</html>

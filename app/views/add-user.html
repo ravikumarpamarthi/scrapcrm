@@ -1,0 +1,109 @@
+<style>
+.pac-container {
+    z-index: 1051 !important;
+}
+</style>
+<div class="modal-header" id="custom-modal">
+    <button type="button" class="close" data-dismiss="modal" ng-click="cancel()">&times;</button>
+    <h5>ADD {{setHeader |uppercase}}</h5>
+</div>
+<div class="modal-body" style="min-height: 498px">
+    <form name="addUserForm" class="form-horizontal row-border" novalidate >
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Name <span  class="has-error">*</span></label>
+            <div class="col-sm-8">
+                <input type="text" name="firstName" ng-model="data.name" class="form-control" required>
+                <div ng-messages="addUserForm.firstName.$error" ng-show="addUserForm.firstName.$touched || submitted">
+                    <div ng-message="required" class="has-error">
+                        <font>Name is required</font>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Mobile
+                <span ng-show="!data.emailId " class="has-error">*</span></label>
+            <div class="col-sm-8">
+                <input ng-model="data.mobileNo" type="text" name="mobile" class="form-control" ng-pattern="/^([0-9]{10})+$/" ng-required="!data.emailId">
+                <div ng-messages="addUserForm.mobile.$error" ng-show="addUserForm.mobile.$touched || submitted">
+                    <div ng-message="required" class="has-error">
+                        <font >Mobile Number is required</font>
+                    </div>
+                    <div ng-message="pattern" class="has-error">
+                        <font >Enter Correct Mobile Number</font>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group">
+            <label class="col-sm-2 control-label">Email</label>
+            <div class="col-sm-8">
+                <input type="Email" ng-model="data.emailId" name="email" class="form-control" ng-pattern="/^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/">
+                <div ng-messages="addUserForm.email.$error" ng-show="addUserForm.email.$touched || submitted">
+                    <div ng-message="required" class="has-error">
+                        <font >Email is required</font>
+                    </div>
+                    <div ng-message="pattern" class="has-error">
+                        <font >Enter valid email</font>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="form-group hidden">
+            <label class="col-sm-2 control-label">Location<span class="has-error">*</span></label>
+            <div class="col-sm-5">
+
+                <input type="text" ng-model="chosenPlace" places-auto-complete details="chosenPlaceDetails" name="location" class="form-control" required >
+                <div ng-messages="addUserForm.location.$error" ng-show="addUserForm.location.$touched || submitted">
+              
+                    <div ng-message="required"class="has-error">
+                        <font >Location is required</font>
+                    </div>
+                </div>
+            </div><div class="col-sm-3 hidden" ng-init="locationadd=false;" >
+            <a ng-click="locationadd=!locationadd;setLocations();" class="btn btn-default btn-md waves-effect waves-light" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-room "></i></a>
+                 <a ng-click="addConsumers()" class="btn btn-default btn-md hidden waves-effect waves-light" data-animation="fadein" data-plugin="custommodal" data-overlaySpeed="200" data-overlayColor="#36404a"><i class="md md-add"></i> Add Location</a>
+            </div>
+        </div>
+        <div class="form-group" ng-show="categoriesList">
+            <label class="col-sm-2 control-label">Categories<span class="has-error">*</span></label>
+            <div class="col-sm-10">
+                <div class="checkbox checkbox-inline" ng-repeat="list in categoriesList">
+                    <input data-checklist-model="categories" data-checklist-value="list.consumerCategoryId" type="checkbox" ng-required="categories.length==0" id="{{list.name}}">
+                    <label for="{{list.name}}">{{list.name}} </label>
+                </div>
+                <div ng-show="categories.length==0" class="has-error">
+                    <font ng-bind="catalog"></font>
+                </div>
+            </div>
+        </div>
+        <div class="form-group" >
+        <div class="form-group" >
+          <label class="col-sm-2 control-label">Location<span class="has-error">*</span></label>
+          <div class="col-sm-10">
+            <input class="form-control" places-auto-complete id="autocomplete" ng-model="vm.formattedAddress" type="text" on-place-changed="placeChanged();" ng-change="chosenPlace=vm.formattedAddress" /></div>
+        </div> 
+        <div class="form-group" >
+          <label class="col-sm-2 control-label">Flat No<span class="has-error">*</span></label>
+          <div class="col-sm-5">
+            <input class="form-control" placeholder="Enter flat/house Number" ng-model="vm.customadd" type="text"  /></div>
+        </div>
+        <ng-map map-type-control=false zoom="16" style="height: 219px;"center="{{center}}" zoom-control=false street-view-control=false>
+            <marker draggable="true" position="{{center}}" on-dragend="markerDragEnd();"    icon="./images/consumer.svg"></marker>
+        </ng-map>
+        <div class="map-child-target" ng-click="setCurrentLocation()"></div>
+        </div>
+        <div class="form-group hidden">
+            <label class="col-sm-2 control-label">Refferal Code</label>
+            <div class="col-sm-8">
+                <input type="text" ng-model="data.refferalCode" class="form-control">
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-5">
+                <button type="button" class="btn btn-primary" data-dismiss="modal" ng-click="addUsers(vm.formattedAddress);">Submit</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal" ng-click="cancel()">Close</button>
+            </div>
+        </div>
+    </form>
+</div>

@@ -1,0 +1,103 @@
+<div class="container">
+    <!-- Page-Title -->
+    <div class="row">
+        <div class="col-sm-12">
+            <h4 class="page-title">Add Product</h4>
+            <ol class="breadcrumb">
+                <li><a href="#">ScrapQ</a></li>
+                <li><a href="#">CRM</a></li>
+                <li class="active">Products</li>
+                <li class="active">Add Product</li>
+            </ol>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card-box">
+                <form name="addproduct" class="form-horizontal" novalidate>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Name <span  class="has-error">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="name" ng-model="data.name" required>
+                            <div ng-messages="addproduct.name.$error" ng-show="addproduct.name.$touched || submitted">
+                                <div class="has-error" ng-message="required">
+                                    Name is Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Category <span  class="has-error">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" name="category" class="form-control" ng-model="data.code" required>
+                            <div ng-messages="addproduct.category.$error" ng-show="addproduct.name.$touched || submitted">
+                                <div class="has-error" ng-message="required">
+                                    Category is Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                   <!--  <div class="row"> -->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Image <span  class="has-error">*</span></label>
+                        <div class="col-sm-8">
+                            <div data-provides="fileinput" style="width: 100%;" class="fileinput fileinput-new">
+                                    
+                                    <span class="btn btn-default btn-file ">
+                                    <input type="file" name="picfile" ngf-select ng-model="picFile" required>
+                                    </span>
+                                    <img ng-show="productfile.picfile.$valid" ngf-thumbnail="picFile" class="thumb hidden " style="width:100px">
+                           
+                                <div ng-messages="addproduct.picfile.$error" ng-show="addproduct.picfile.$touched || submitted">
+                                    <div ng-message="required">
+                                        <font style="color:red">Image is Required</font>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                 <!--   // </div> -->
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">UOM <span  class="has-error">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" name="uoms" class="form-control" ng-model="data.uom" required>
+                            <div ng-messages="addproduct.uoms.$error" ng-show="addproduct.uoms.$touched || submitted">
+                                <div class="has-error" ng-message="required">
+                                    Uom is Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Price <span  class="has-error">*</span></label>
+                        <div class="col-sm-8">
+                            <input type="text" class="form-control" name="price" ng-model="data.price" required>
+                            <div ng-messages="addproduct.price.$error" ng-show="addproduct.price.$touched || submitted">
+                                <div class="has-error" ng-message="required">
+                                    Price is Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="form-group">
+                        <label class="col-sm-2 control-label">Decription <span  class="has-error">*</span></label>
+                        <div class="col-sm-8">
+                            <textarea class="form-control" name="description" ng-model="data.description" required></textarea>
+                            <div ng-messages="addproduct.description.$error" ng-show="addproduct.description.$touched || submitted">
+                                <div class="has-error" ng-message="required">
+                                    Decription is Required
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-sm-8 col-sm-offset-5">
+                            <button class="btn-primary btn" ng-click="upload(picFile)">Submit</button>
+                            <button class="btn-default btn" ui-sref="root.products" href="#/products">Cancel</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>

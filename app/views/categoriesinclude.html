@@ -1,0 +1,33 @@
+  <div class="panel-body scroll-pane has-scrollbar" style="overflow:auto">
+        <div class="company-product scroll-content" tabindex="0" style="right: -17px;">
+            <div class="row-fluid ">
+                {{selectedCategories}}
+                <div class="col-sm-4 col-sm-6" ng-repeat="category in categories">
+                    <div class="single-product" >
+                        <input type="checkbox" data-checklist-model="categories.users" data-checklist-value="category" class="cus-checkbox">
+                        <h5> <a href ng-bind="category.name"></a></h5>
+                        <h5> <a href class="newcat">price Rs.{{category.price}}/{{category.uom}}</a></h5>
+                        <figure>
+                            <img ng-src="{{$root.getImageFileById}}/{{category.image}}.jpg" alt="">
+                        </figure>
+                        <div class="row-fluid">
+                            <div class="col-sm-3">
+                                <span style="display:inline-block;padding-left:5px;padding-top:8px;">Quantity:</span></div>
+                           <div ng-form="nv"class="col-sm-9 text-center" style="padding-right:1px">
+                                                <span class="lt" ng-click="decreaseQty($index)"><i class="fa fa-minus-circle"></i></span>
+                                                <input class="bidinp" type="text" name="qtys" ng-pattern="/^[0-9]+(\.[0-9]{1,2})?$/" ng-model="category.qty" ng-init="category.qty=1" />
+                                                <span  class="lt" ng-click="increaseQty($index)"><i class="fa fa-plus-circle"></i></span>
+                                                <p class="help-block has-error" ng-show="nv.qtys.$error.pattern">please Enter Number
+                        </p>
+                                            </div>
+                        </div>
+                    </div>
+                   
+                </div>
+          
+            </div>
+              <div class="scroll-track">
+                                            <div class="scroll-thumb" style="height: 10px; transform: translate(0px, 151px);"></div>
+                                        </div> 
+                                        </div>
+        </div>

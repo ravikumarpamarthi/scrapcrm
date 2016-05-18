@@ -1,0 +1,12 @@
+.text-left {
+  text-align: left !important;
+}
+.text-right {
+  text-align: right !important;
+}
+.ng-table-counts{
+  display:none;
+}
+.ng-table-pager{
+  text-align:right;
+}
